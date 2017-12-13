@@ -3,6 +3,105 @@ body {
   margin: 0;
   color: dimgray;
 }
+
+#notFound {
+    clear: both;
+    font-size: 2em;
+    color: red; 
+}
+
+#schoolSearch {
+    
+}
+
+.index{
+	z-index:999;
+	cursor: pointer;
+	stroke-width:2;
+}
+
+.typeahead,
+.tt-query,
+.tt-hint {
+/*   width: 396px; */
+  width: 35vw;
+  height: 30px;
+  padding: 8px 2vw;
+  font-size: 18px;
+  font-family: sans-serif;
+  line-height: 30px;
+  border: 2px solid #ccc;
+  -webkit-border-radius: 8px;
+     -moz-border-radius: 8px;
+          border-radius: 8px;
+  outline: none;
+  margin-right: 1vw; 
+  float: left;
+}
+
+#button {
+
+    display: table;
+    float: left;
+    width: 10vw;
+    height: 50px;
+    background: dimgray;
+  -webkit-border-radius: 8px;
+     -moz-border-radius: 8px;
+          border-radius: 8px;
+}
+
+#button:hover {
+    background: grey;
+}
+
+#button:active {
+    background: #fe0002;
+}
+
+#button span {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    color: white;
+    font-size: 18px; 
+    font-weight: bold; 
+}
+
+.search-container{
+	text-align: center;
+	width: 50.5vw;
+	margin-left: 24.75vw;
+	margin-bottom: 30px;
+	margin-top: 30px;
+
+}
+
+#notFound {
+    font-size: 14px; 
+    padding-left: 10px; 
+}
+
+#searchHeader {
+    text-align: center;
+}
+
+.numbers{
+	position: absolute;
+}
+.n4{
+	margin-top:8vw;
+	margin-left: -1.5vw; 
+}
+.n3{
+	margin-top:7.5vw;
+	margin-left: -1.5vw; 
+}
+.n2{
+	margin-top:7.5vw;
+	margin-left: -1.5vw; 
+}
+
 #chart{
 	width: 70vw;
 	margin-left: 15vw;
@@ -22,6 +121,30 @@ body {
 .grade{
 	margin-left: 10vw;
 	padding: 5vw;
+}
+
+.income-text{
+	font-size: 1.4vw;
+	color: dimgray;
+	margin-top: 36vw;
+	position: absolute;
+	text-align: center;
+	width: 15vw;
+	margin-left: 27.5vw;
+}
+.income-num{
+	position: absolute;
+	margin-top: 36vw;
+}
+
+.inc-start{
+	margin-left: -2vw;
+	position: absolute;
+}
+.inc-end{
+	margin-left:68vw;
+	position: absolute;
+
 }
 
 h1 {

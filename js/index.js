@@ -98,7 +98,26 @@
 	      	})
 			.style('fill-opacity', 0.6)
 			.style("stroke", "gray")
-			.style("stroke-width", 0.5);
+			.style("stroke-width", 0.5)
+
+
+			d3.selection.prototype.moveToFront = function() {
+			  return this.each(function(){
+			    this.parentNode.appendChild(this);
+			  });
+			}	
+
+			node.on("mouseover",function(){
+			  var sel = d3.select(this);
+			  sel.moveToFront();
+			})
+			
+			d3.selection.prototype.moveToBack = function() { 
+			    this.each(function() { 
+			        this.parentNode.firstChild
+			          && this.parentNode.insertBefore(this, firstChild); 
+			        }); 
+			};
 
 
 
@@ -124,37 +143,37 @@
 		//around this, I just haven't find the right methode. 
 		var simulation = d3.forceSimulation()
     	.force("link", d3.forceLink().id(function(d) { return d.id; }))
-    	.force("charge", d3.forceManyBody().strength(-10))
+    	// .force("charge", d3.forceManyBody().strength(-10))
     	//.force("center", d3.forceCenter(width / 2, height / 2))
     	.on("tick", ticked);
 
 		
-		svg.selectAll("text")
-			.data(data.nodes)
-			.enter()
-			.append("text")
-			.attr("fill", "gray")
-			.attr("class", "text-fill")
-			.attr("text-anchor", "middle")
-			.attr("y", function(d,i){
-				return 43.75 - (d.mathrating * 8.75) +("vw"); 
-			})
-			.attr("x", function(d,i){
-				return d.medincome / 2457.14286 +("vw");
-			})
-			.text(function(d){
-				return "students:" + d.n;
-			})
+		// svg.selectAll("text")
+		// 	.data(data.nodes)
+		// 	.enter()
+		// 	.append("text")
+		// 	.attr("fill", "gray")
+		// 	.attr("class", "text-fill")
+		// 	.attr("text-anchor", "middle")
+		// 	.attr("y", function(d,i){
+		// 		return 43.75 - (d.mathrating * 8.75) +("vw"); 
+		// 	})
+		// 	.attr("x", function(d,i){
+		// 		return d.medincome / 2457.14286 +("vw");
+		// 	})
+		// 	.text(function(d){
+		// 		return "students:" + d.n;
+		// 	})
 
-				//THis is the on mouse over data.nodes
-			.on('mouseover',function(d){
-				d3.select(this).classed("selected",true)
+		// 		//THis is the on mouse over data.nodes
+		// 	.on('mouseover',function(d){
+		// 		d3.select(this).classed("selected",true)
 
-			})
-			.on('mouseout',function(d){
-				d3.select(this).classed("selected",false)
+		// 	})
+		// 	.on('mouseout',function(d){
+		// 		d3.select(this).classed("selected",false)
 				
-			});
+		// 	});
 
 
 
@@ -168,24 +187,40 @@
 
 	function ticked() {
   		var x = (function(d){
-				// return d.medincome / 1457.14286 +("vw");
-				return d.medincome / 2457.14286 +("vw");
+
+  			d.x = d.medincome / 2457.14286 +("vw");
+				// return d.medincome / 2457.14286 +("vw");
 			});
 
   		var y = (function(d, i){
-				return 43.75 - (d.mathrating * 8.75) +("vw");
+  			d.y = 43.75 - (d.mathrating * 8.75) +("vw");
+				// return 43.75 - (d.mathrating * 8.75) +("vw");
 			});
 
-    	
-    	link
-        	.attr("x1", function(d) { return d.source.x; })
-        	.attr("y1", function(d) { return d.source.y; })
-        	.attr("x2", function(d) { return d.target.x; })
-        	.attr("y2", function(d) { return d.target.y; });
 
-    	node
-        	.attr("cx", x)
-      		.attr("cy", y);
+    	link
+        	.attr("x1", function(_d) {
+        		// console.log(_d); 
+        		return  _d.source.medincome / 2457.14286 +("vw")
+        	})
+
+        	.attr("y1", function(_d) {
+        		// console.log(_d); 
+        		// debugger
+				return  43.75 - (_d.source.mathrating * 8.75) +("vw"); })
+        	.attr("x2", function(_d) { 
+        		// return _d.target.x; 
+        		return  _d.target.medincome / 2457.14286 +("vw");
+        	})
+        	.attr("y2", function(_d) { 
+        		return  43.75 - (_d.target.mathrating * 8.75) +("vw"); })
+
+    	// node
+     //    	.attr("cx", x)
+     //  		.attr("cy", y);
+
+      	// .attr("cx", function(d) { return d.x; })
+       //  .attr("cy", function(d) { return d.y; });
 
   	}
 }
