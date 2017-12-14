@@ -1,6 +1,6 @@
 var Chart = (function(window,d3) {
 
-	var data, datanest, x, y, r, xAxis, yAxis, width, height, margin = {}, node, school, line;
+	var data, datanest, x, y, r, xAxis, yAxis, width, height, margin = {}, school, node, path, line;
 	var colors = {
 		'Black': '#00635D',
 		'White': '#7B0828',
@@ -37,25 +37,27 @@ var Chart = (function(window,d3) {
 			.x(d => x(d.values[0].medincome))
 			.y(d => y(d.values[0].mathrating));
 
-		//initialize svg
+		// initialize svg
 		svg = d3.select('#chart').append('svg');
 		chartWrapper = svg.append('g');
 
-		// define demographic nodes
-		node = chartWrapper.selectAll('.node')
-				.data(data).enter()
-			.append('circle')
-				.attr('class', 'node');
-
-		// define school paths
+		// initialize school groups
 		school = chartWrapper.selectAll('.school')
 				.data(datanest).enter()
 			.append('g')
 				.attr('class', 'school')
+
+		// initialize demographic nodes
+		node = chartWrapper.selectAll('.school').selectAll('.node')
+				.data(d => d.values).enter()
+			.append('circle')
+				.attr('class', 'node');
+
+		// define school paths
+		path = chartWrapper.selectAll('.school')
 			.append('path')
 				.datum(d => d.values);
 
-		// path = chartWrapper.append('path').datum(data).classed('line', true);
 		chartWrapper.append('g').classed('x axis', true);
 		chartWrapper.append('g').classed('y axis', true);
 
@@ -102,15 +104,16 @@ var Chart = (function(window,d3) {
 		svg.select('.y.axis')
 			.call(yAxis);
 
+		// Set path's path
+		path
+			.attr('d', d => line(d));
+
 		// Set node positions, radii, and colors
 		node
-			.attr('r', d => r(d.n))
-			.attr('cx', d => x(d.medincome))
-			.attr('cy', d => y(d.mathrating))
-			.style('fill', d => colors[d.eth]);
-
-		school
-			.attr('d', d => line(d))
+			.attr('r', d => r(d.values[0].n))
+			.attr('cx', d => x(d.values[0].medincome))
+			.attr('cy', d => y(d.values[0].mathrating))
+			.style('fill', d => colors[d.values[0].eth]);
 
 		d3.selection.prototype.moveToFront = function() {
 				return this.each(function(){
@@ -118,9 +121,15 @@ var Chart = (function(window,d3) {
 				});
 			}
 
-		node.on("mouseover",function(){
+		node.on('mouseover', function(d) {
 			  var sel = d3.select(this);
-			  sel.moveToFront();
+				d3.select(this.parentNode).classed('hover', true);
+			  d3.select(this.parentNode).moveToFront();
+				var name = d.values[0].name;
+				d3.select('#information').select('.name').html(name);
+				d3.select('#information').style('display', 'block');
+			}).on('mouseout', function() {
+				d3.select(this.parentNode).classed('hover', false);
 			});
 
 		d3.selection.prototype.moveToBack = function() {
@@ -130,41 +139,25 @@ var Chart = (function(window,d3) {
 				});
 			};
 
-		//I don't think that simulation is the best way to go
-		// var simulation = d3.forceSimulation()
-		// 	.force("link", d3.forceLink().id(function(d) { return d.id; }))
-		// 	// .force("charge", d3.forceManyBody().strength(-10))
-		// 	//.force("center", d3.forceCenter(width / 2, height / 2))
-		// 	.on("tick", ticked);
-    //
-		// simulation.nodes(data.nodes);
-		// simulation.force("link").links(data.links);
+		d3.select('#show-gifted').on('click', function() {
+			svg.selectAll('.school')
+				.filter(d => {
+					return d.values[0].values[0].gifted == 0;
+				})
+				.attr('opacity', 0).style('pointer-events', 'none');
+		});
 
-		// function ticked() {
-		// 	var x = (function(d){
-		// 		d.x = d.medincome / 2457.14286 +("vw");
-		// 		// return d.medincome / 2457.14286 +("vw");
-		// 	});
-    //
-		// 	var y = (function(d, i){
-		// 		d.y = 43.75 - (d.mathrating * 8.75) +("vw");
-		// 		// return 43.75 - (d.mathrating * 8.75) +("vw");
-		// 	});
-    //
-		// 	link.attr("x1", function(_d) {
-		// 		return  _d.source.medincome / 2457.14286 +("vw")
-		// 	})
-		// 	.attr("y1", function(_d) {
-		// 		return  43.75 - (_d.source.mathrating * 8.75) +("vw");
-		// 	})
-		// 	.attr("x2", function(_d) {
-		// 		return  _d.target.medincome / 2457.14286 +("vw");
-		// 	})
-		// 	.attr("y2", function(_d) {
-		// 		return  43.75 - (_d.target.mathrating * 8.75) +("vw");
-		// 	});
-		//
-		// } // ticked
+		d3.select('#show-duallang').on('click', function() {
+			svg.selectAll('.school')
+				.filter(d => {
+					return d.values[0].values[0].duallang == 0;
+				})
+				.attr('opacity', 0).style('pointer-events', 'none');
+		});
+
+		d3.select('#show-all').on('click', function() {
+			svg.selectAll('.school').attr('opacity', 1).style('pointer-events', 'all');
+		});
 
 	} // render
 
