@@ -1,23 +1,24 @@
 body {
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "Roboto Light", "Segoe UI Web Light", "Segoe UI Light", "Segoe UI Web Regular", "Segoe UI", Helvetica, Arial, sans-serif; 
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "Roboto Light", "Segoe UI Web Light", "Segoe UI Light", "Segoe UI Web Regular", "Segoe UI", Helvetica, Arial, sans-serif;
   margin: 0;
   color: dimgray;
 }
 
 #notFound {
-    clear: both;
-    font-size: 2em;
-    color: red; 
+  clear: both;
+  font-size: 2em;
+  color: red;
+  font-size: 14px;
+  padding-left: 10px;
 }
 
 #schoolSearch {
-    
 }
 
 .index{
-	z-index:999;
-	cursor: pointer;
-	stroke-width:2;
+  z-index:999;
+  cursor: pointer;
+  stroke-width:2;
 }
 
 .typeahead,
@@ -35,116 +36,95 @@ body {
      -moz-border-radius: 8px;
           border-radius: 8px;
   outline: none;
-  margin-right: 1vw; 
+  margin-right: 1vw;
   float: left;
 }
 
 #button {
-
-    display: table;
-    float: left;
-    width: 10vw;
-    height: 50px;
-    background: dimgray;
+  display: table;
+  float: left;
+  width: 10vw;
+  height: 50px;
+  background: dimgray;
   -webkit-border-radius: 8px;
      -moz-border-radius: 8px;
           border-radius: 8px;
 }
 
 #button:hover {
-    background: grey;
+  background: grey;
 }
 
 #button:active {
-    background: #fe0002;
+  background: #fe0002;
 }
 
 #button span {
-    display: table-cell;
-    text-align: center;
-    vertical-align: middle;
-    color: white;
-    font-size: 18px; 
-    font-weight: bold; 
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
 }
 
-.search-container{
-	text-align: center;
-	width: 50.5vw;
-	margin-left: 24.75vw;
-	margin-bottom: 30px;
-	margin-top: 30px;
-
-}
-
-#notFound {
-    font-size: 14px; 
-    padding-left: 10px; 
+.search-container {
+  text-align: center;
+  width: 50.5vw;
+  margin-left: 24.75vw;
+  margin-bottom: 30px;
+  margin-top: 30px;
 }
 
 #searchHeader {
-    text-align: center;
+  text-align: center;
 }
 
-.numbers{
-	position: absolute;
+.numbers {
+  position: absolute;
 }
-.n4{
-	margin-top:8vw;
-	margin-left: -1.5vw; 
+.n4 {
+  margin-top:8vw;
+  margin-left: -1.5vw;
 }
-.n3{
-	margin-top:7.5vw;
-	margin-left: -1.5vw; 
+.n3 {
+  margin-top:7.5vw;
+  margin-left: -1.5vw;
 }
-.n2{
-	margin-top:7.5vw;
-	margin-left: -1.5vw; 
-}
-
-#chart{
-	width: 70vw;
-	margin-left: 15vw;
-	text-align: center;
-	margin-top: 30px;
+.n2 {
+  margin-top:7.5vw;
+  margin-left: -1.5vw;
 }
 
-.chart-container{
-	width: 80vw;
-	margin-left: 10vw;
-	position: relative;
+.grades {
+  position: absolute;
+}
+.grade {
+  margin-left: 10vw;
+  padding: 5vw;
 }
 
-.grades{
-	position: absolute;
+.income-text {
+  font-size: 1.4vw;
+  color: dimgray;
+  margin-top: 36vw;
+  position: absolute;
+  text-align: center;
+  width: 15vw;
+  margin-left: 27.5vw;
 }
-.grade{
-	margin-left: 10vw;
-	padding: 5vw;
-}
-
-.income-text{
-	font-size: 1.4vw;
-	color: dimgray;
-	margin-top: 36vw;
-	position: absolute;
-	text-align: center;
-	width: 15vw;
-	margin-left: 27.5vw;
-}
-.income-num{
-	position: absolute;
-	margin-top: 36vw;
+.income-num {
+  position: absolute;
+  margin-top: 36vw;
 }
 
-.inc-start{
-	margin-left: -2vw;
-	position: absolute;
+.inc-start {
+  margin-left: -2vw;
+  position: absolute;
 }
-.inc-end{
-	margin-left:68vw;
-	position: absolute;
-
+.inc-end {
+  margin-left:68vw;
+  position: absolute;
 }
 
 h1 {
@@ -152,85 +132,71 @@ h1 {
   font-size: 2.4em;
   text-align: center;
 }
-.leyend{
-	width: 80vw;
-	margin-left: 10vw;
-	text-align: center;
+.legend {
+  width: 80vw;
+  margin-left: 10vw;
+  text-align: center;
 }
-.leyend-elements{
-	display: inline-flex;
-	margin-top: 10px;
-}
-
-.leyend-circle{
-	width: 20px;
-	height: 20px;
-	border-radius: 10px;
-	border: solid 0.5px dimgray;
-	margin-left:10px;
-	opacity: 0.6;
+.legend-elements {
+  display: inline-flex;
+  margin-top: 10px;
 }
 
-.asian{
-	background: #36173A;
+.legend-circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  border: solid 0.5px dimgray;
+  margin-left:10px;
+  opacity: 0.6;
 }
 
-.black{
-	background: #00635D;
+.asian { background: #36173A; }
+.black { background: #00635D; }
+.hispanic { background: #E3D26F; }
+.other { background: #BB6B00; }
+.white { background: #7B0828; }
+
+.legend-elements span {
+  font-family: "HelveticaNeue-Light";
+  padding-left:10px;
+  padding-right:10px;
+  text-align: center;
 }
 
-.hispanic{
-	background: #E3D26F;
+.text-fill {
+  fill: transparent;
+  cursor: pointer;
 }
-
-.other{
-	background: #BB6B00;
+.selected {
+  fill: dimgray;
+  cursor: pointer;
 }
-
-.white{
-	background: #7B0828;
+.noline {
+  stroke: solid transparent;
 }
-
-.leyend-elements span{
-	font-family: "HelveticaNeue-Light";
-	padding-left:10px;
-	padding-right:10px;
-	text-align: center;
-}
-
-.text-fill{
-	fill: transparent;
-	cursor: pointer;
-	
-}
-.selected{
-	fill: dimgray;
-	cursor: pointer;
-
-}
-.noline{
-	stroke: solid transparent;
-
-
-}
-.noline.yesline{
-	stroke: solid red;
-
-
+.noline.yesline {
+  stroke: solid red;
 }
 
 .links line {
   stroke: #999;
   stroke-opacity: 0.6;
+  stroke-width: 0.5;
 }
 
+/*TODO: Clean this up*/
 .nodes circle {
   stroke: #fff;
   stroke-width: 1.5px;
+}
+/*TODO: Clean this up*/
+.node {
+  fill-opacity: 0.6;
+  stroke: gray;
+  stroke-width: 0.5;
 }
 
 .line-2-cirkel {
   stroke: #5ca9da;
 }
-
-

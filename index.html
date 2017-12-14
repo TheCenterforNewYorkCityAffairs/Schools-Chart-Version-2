@@ -3,95 +3,42 @@
 <head>
   <meta charset="UTF-8">
   <title>Nicole's Chart</title>
-  
-  
-  
-      <link rel="stylesheet" href="css/style.css">
-
-  
+  <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
-
-	<div class="search-container">
-	<div id="searchHeader" style="clear: both; ">
-            <div id="schoolSearch">
-                <input class="typeahead" type="text" placeholder="School Search">
-            </div>
-        
-            <div id="button"><span>Search</span></div>
-        
-            <div id="notFound"></div>
+  <div class="search-container">
+    <div id="searchHeader" style="clear: both; ">
+      <div id="schoolSearch">
+        <input class="typeahead" type="text" placeholder="School Search">
+      </div>
+      <div id="button"><span>Search</span></div>
+      <div id="notFound"></div>
     </div>
-    </div>
-
-  <div class="leyend">
-	  	<div class="leyend-elements">
-	  		<div class="leyend-circle asian"></div>
-	  		<span>Asian</span>
-	  	</div>
-
-	  	<div class="leyend-elements">
-	  		<div class="leyend-circle black"></div>
-	  		<span>Black</span>
-	  	</div>
-
-	  	<div class="leyend-elements">
-	  		<div class="leyend-circle hispanic"></div>
-	  		<span>Hispanic</span>
-	  	</div>
-
-	  	<div class="leyend-elements">
-	  		<div class="leyend-circle other"></div>
-	  		<span>Other</span>
-	  	</div>
-
-	  	<div class="leyend-elements">
-	  		<div class="leyend-circle white"></div>
-	  		<span>White</span>
-	  	</div>
-
-	  	
   </div>
-
-
-<!-- 	<div class="grades">
-		<div class="grade">3</div>
-		<div class="grade">2</div>
-		<div class="grade">1</div>
-	</div> -->
-	<div id="chart">
-		<svg width='84vw' height='71vw'></svg>
-
-		<div class="numbers">
-			<div class="n4">4</div>
-			<div class="n3">3</div>
-			<div class="n2">2</div>
-		</div>
-
-		<div class="income">
-			<div class="income-num">
-				<div class="inc-start">12,000</div>
-				<div class="inc-end">172,000</div>
-			</div>
-			<div class="income-text">Estimated Media Income</div>
-			
-		</div>
-	</div>
-
-<script src='http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js'></script>
-<script src="http://d3js.org/d3.v2.min.js"></script>
-<script src='http://cdn.pubnub.com/pubnub.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular.min.js'></script>
-<script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js'></script>
-<script src='http://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js'></script>
-<script src='http://cdnjs.cloudflare.com/ajax/libs/gsap/1.16.1/TweenMax.min.js'></script>
-	
-
-	<script src="https://d3js.org/d3.v4.min.js"></script>
-    <script  src="js/index.js"></script>
-
+  <div class="legend">
+    <div class="legend-elements">
+      <div class="legend-circle asian"></div>
+      <span>Asian</span>
+    </div>
+    <div class="legend-elements">
+      <div class="legend-circle black"></div>
+      <span>Black</span>
+    </div>
+    <div class="legend-elements">
+      <div class="legend-circle hispanic"></div>
+      <span>Hispanic</span>
+    </div>
+    <div class="legend-elements">
+      <div class="legend-circle other"></div>
+      <span>Other</span>
+    </div>
+    <div class="legend-elements">
+      <div class="legend-circle white"></div>
+      <span>White</span>
+    </div>
+  </div>
+  <div id="chart"></div>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script  src="js/index.js"></script>
 </body>
 </html>
