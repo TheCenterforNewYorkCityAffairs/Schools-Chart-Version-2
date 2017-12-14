@@ -1,6 +1,6 @@
 var Chart = (function(window,d3) {
 
-	var data, datanest, x, y, r, xAxis, yAxis, width, height, margin = {}, node;
+	var data, datanest, x, y, r, xAxis, yAxis, width, height, margin = {}, node, school, line;
 	var colors = {
 		'Black': '#00635D',
 		'White': '#7B0828',
@@ -17,10 +17,8 @@ var Chart = (function(window,d3) {
 		data = json['nodes'];
 		datanest = d3.nest()
 			.key(d => d.dbn)
-			.key(d => d.eth).sortKeys(d => d.medincome)
+			.key(d => d.medincome).sortKeys(d3.ascending)
 			.entries(data);
-
-		console.log(datanest);
 
 		//initialize scales
 		var xExtent = d3.extent(data, d => d.medincome);
@@ -35,14 +33,29 @@ var Chart = (function(window,d3) {
 		xAxis = d3.axisBottom();
 		yAxis = d3.axisLeft();
 
+		line = d3.line()
+			.x(d => x(d.values[0].medincome))
+			.y(d => y(d.values[0].mathrating));
+
 		//initialize svg
 		svg = d3.select('#chart').append('svg');
 		chartWrapper = svg.append('g');
+
+		// define demographic nodes
 		node = chartWrapper.selectAll('.node')
 				.data(data).enter()
 			.append('circle')
 				.attr('class', 'node');
 
+		// define school paths
+		school = chartWrapper.selectAll('.school')
+				.data(datanest).enter()
+			.append('g')
+				.attr('class', 'school')
+			.append('path')
+				.datum(d => d.values);
+
+		// path = chartWrapper.append('path').datum(data).classed('line', true);
 		chartWrapper.append('g').classed('x axis', true);
 		chartWrapper.append('g').classed('y axis', true);
 
@@ -95,6 +108,9 @@ var Chart = (function(window,d3) {
 			.attr('cx', d => x(d.medincome))
 			.attr('cy', d => y(d.mathrating))
 			.style('fill', d => colors[d.eth]);
+
+		school
+			.attr('d', d => line(d))
 
 		d3.selection.prototype.moveToFront = function() {
 				return this.each(function(){
