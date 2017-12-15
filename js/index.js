@@ -155,6 +155,22 @@ var Chart = (function(window,d3) {
 				.attr('opacity', 0).style('pointer-events', 'none');
 		});
 
+		d3.select('#show-charter').on('click', function() {
+			svg.selectAll('.school')
+				.filter(d => {
+					return d.values[0].values[0].charter == 0;
+				})
+				.attr('opacity', 0).style('pointer-events', 'none');
+		});
+
+		d3.select('#hide-charter').on('click', function() {
+			svg.selectAll('.school')
+				.filter(d => {
+					return d.values[0].values[0].charter == 1;
+				})
+				.attr('opacity', 0).style('pointer-events', 'none');
+		});
+
 		d3.select('#show-all').on('click', function() {
 			svg.selectAll('.school').attr('opacity', 1).style('pointer-events', 'all');
 		});
