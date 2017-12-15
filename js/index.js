@@ -1,232 +1,186 @@
-	
-	var diameter = '71vw';
+var Chart = (function(window,d3) {
 
-	// var vertical = ["7vw","14vw","21vw","28vw","35vw","42vw","49vw","56vw","63vw"];
+	var data, datanest, x, y, r, xAxis, yAxis, width, height, margin = {}, school, node, path, line;
+	var colors = {
+		'Black': '#00635D',
+		'White': '#7B0828',
+		'Hispanic': '#E3D26F',
+		'Asian': '#36173A',
+		'Other': '#BB6B00',
+		'Default': '#F3F3F3'
+	}
 
-	
+	d3.json('js/datatest.json', init); //load data, then initialize chart
 
-	var horizontal = ["hLine0","hLine1","hLine2"];
+	// Initialize the chart for the first time
+	function init(json) {
+		data = json['nodes'];
+		datanest = d3.nest()
+			.key(d => d.dbn)
+			.key(d => d.medincome).sortKeys(d3.ascending)
+			.entries(data);
 
-	var vertical = ["line0","line1","line2","line3","line4","line5","line6"];
+		//initialize scales
+		var xExtent = d3.extent(data, d => d.medincome);
+		var yExtent = d3.extent(data, d => d.mathrating);
+		x = d3.scaleLinear().domain(xExtent);
+		y = d3.scaleLinear().domain(yExtent);
+		r = d3.scaleLinear()
+			.domain(d3.extent(data, d => d.n))
+			.range(['0.4vw', '3.5vw']);
 
+		//initialize axis
+		xAxis = d3.axisBottom();
+		yAxis = d3.axisLeft();
 
+		line = d3.line()
+			.x(d => x(d.values[0].medincome))
+			.y(d => y(d.values[0].mathrating));
 
-	function importData(){
+		// initialize svg
+		svg = d3.select('#chart').append('svg');
+		chartWrapper = svg.append('g');
 
-		// chart
-		var svg = d3.select('svg'),
-			width = +svg.attr("width"),
-    		height = +svg.attr("height");
+		// initialize school groups
+		school = chartWrapper.selectAll('.school')
+				.data(datanest).enter()
+			.append('g')
+				.attr('class', 'school')
 
-    	var link = svg.selectAll(".link"),
-    		node = svg.selectAll(".node");
+		// initialize demographic nodes
+		node = chartWrapper.selectAll('.school').selectAll('.node')
+				.data(d => d.values).enter()
+			.append('circle')
+				.attr('class', 'node');
 
+		// define school paths
+		path = chartWrapper.selectAll('.school')
+			.append('path')
+				.datum(d => d.values);
 
+		chartWrapper.append('g').classed('x axis', true);
+		chartWrapper.append('g').classed('y axis', true);
 
-		d3.json("js/datatest.json", function(error, data){
-			if (error) throw error;
-			console.log("json conected");
-			console.log(data.nodes);	
+		//render the chart
+		render();
+	}
 
-				
-		
+	// Determine the right dimensions for the chart
+	// depending on current window size
+	function updateDimensions(winWidth) {
+		margin.top = 20;
+		margin.right = 50;
+		margin.left = 50;
+		margin.bottom = 50;
 
+		width = winWidth - margin.left - margin.right;
+		height = width * 0.7 - margin.top - margin.bottom;
+	}
 
-		
+	// Draw the chart and all the SVG elements
+	// This can run again when the page is resized, e.g.
+	function render() {
+		//get dimensions based on window size
+		updateDimensions(window.innerWidth);
 
-	// Chart vertical and horizontal lines
-		svg.selectAll("line")
-			.data(horizontal)
-			.enter()
-				.append("rect")
-				.attr ("width",'70vw')
-				.attr ("height", 0.25)
-				.attr("y", function(d, i){return 8.75 + i * 8.75 + "vw"});
-		
-		
-		svg.selectAll("line")
-			.data(vertical)
-			.enter()
-				.append("rect")
-				.attr ("height",35+"vw")
-				.attr ("width", 0.25)
-				.attr("fill", "gray")
-				.attr("x", function(d, i){return 8.75 + i * 8.75 + "vw"});
+		//update x and y scales to new dimensions
+		x.range([0, width]);
+		y.range([height, 0]);
 
+		//update svg elements to new dimensions
+		svg
+			.attr('width', width + margin.right + margin.left)
+			.attr('height', height + margin.top + margin.bottom);
+		chartWrapper.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
+		//update the axes
+		xAxis.scale(x);
+		yAxis.scale(y);
 
-      	link = link
-		    .data(data.links)
-		    .enter().append("line")
-		    .attr("class", "link")
-		    .attr("stroke", "gray")
-      		.attr("stroke-width", 0.5);
+		svg.select('.x.axis')
+			.attr('transform', 'translate(0,' + height + ')')
+			.call(xAxis);
 
-		
+		svg.select('.y.axis')
+			.call(yAxis);
 
+		// Set path's path
+		path
+			.attr('d', d => line(d));
 
-	//Creating the circles	
-		var circleScale = d3.scale.linear()
-		.domain(d3.extent(data.nodes,function(d)
-			{return d.n}))
-		.range(["0.4vw","3.5vw"])
+		// Set node positions, radii, and colors
+		node
+			.attr('r', d => r(d.values[0].n))
+			.attr('cx', d => x(d.values[0].medincome))
+			.attr('cy', d => y(d.values[0].mathrating))
+			.style('fill', d => colors[d.values[0].eth]);
 
+		d3.selection.prototype.moveToFront = function() {
+				return this.each(function(){
+					this.parentNode.appendChild(this);
+				});
+			}
 
-		node = node
-	    	.data(data.nodes)
-	    	.enter().append("circle")
-	      	.attr("class", "node")
-			.attr("r", function(d){	
-				return circleScale(d.n)
-			})
-
-			.attr("cx", function(d){
-				return d.medincome / 2457.14286 +("vw");
-			})
-			.attr("cy", function(d, i){
-				return 43.75 - (d.mathrating * 8.75) +("vw");
-			})
-
-
-	     	.style("fill",function(d){
-	        	  return ((d.eth == "Black")?"#00635D":
-	        	  	(d.eth == "White")?"#7B0828":
-	        	  	(d.eth == "Hispanic")?"#E3D26F":
-	        	  	(d.eth == "Asian")?"#36173A":
-	        	  	(d.eth == "Other")?"#BB6B00":"gray");
-
-	      	})
-			.style('fill-opacity', 0.6)
-			.style("stroke", "gray")
-			.style("stroke-width", 0.5)
-
-
-			d3.selection.prototype.moveToFront = function() {
-			  return this.each(function(){
-			    this.parentNode.appendChild(this);
-			  });
-			}	
-
-			node.on("mouseover",function(){
+		node.on('mouseover', function(d) {
 			  var sel = d3.select(this);
-			  sel.moveToFront();
-			})
-			
-			d3.selection.prototype.moveToBack = function() { 
-			    this.each(function() { 
-			        this.parentNode.firstChild
-			          && this.parentNode.insertBefore(this, firstChild); 
-			        }); 
+				d3.select(this.parentNode).classed('hover', true);
+			  d3.select(this.parentNode).moveToFront();
+				var name = d.values[0].name;
+				d3.select('#information').select('.name').html(name);
+				d3.select('#information').style('display', 'block');
+			}).on('mouseout', function() {
+				d3.select(this.parentNode).classed('hover', false);
+			});
+
+		d3.selection.prototype.moveToBack = function() {
+				this.each(function() {
+					this.parentNode.firstChild
+					&& this.parentNode.insertBefore(this, firstChild);
+				});
 			};
 
+		d3.select('#show-gifted').on('click', function() {
+			svg.selectAll('.school')
+				.filter(d => {
+					return d.values[0].values[0].gifted == 0;
+				})
+				.attr('opacity', 0).style('pointer-events', 'none');
+		});
 
+		d3.select('#show-duallang').on('click', function() {
+			svg.selectAll('.school')
+				.filter(d => {
+					return d.values[0].values[0].duallang == 0;
+				})
+				.attr('opacity', 0).style('pointer-events', 'none');
+		});
 
+		d3.select('#show-charter').on('click', function() {
+			svg.selectAll('.school')
+				.filter(d => {
+					return d.values[0].values[0].charter == 0;
+				})
+				.attr('opacity', 0).style('pointer-events', 'none');
+		});
 
+		d3.select('#hide-charter').on('click', function() {
+			svg.selectAll('.school')
+				.filter(d => {
+					return d.values[0].values[0].charter == 1;
+				})
+				.attr('opacity', 0).style('pointer-events', 'none');
+		});
 
-		// Here I was trying to link the circles, but
-		// this didn't worked. 	
+		d3.select('#show-all').on('click', function() {
+			svg.selectAll('.school').attr('opacity', 1).style('pointer-events', 'all');
+		});
 
-		// svg.selectAll("line")
-		// 	.data(data.link)
-		//  .data(data.node)
-		// 	.enter()
-		// 		.append("line")
-		// 		.attr("x1", function(d, i){return d.source, d.medincome / 2457.14286 +("vw");})
-		// 		.attr("x2", function(d, i){return d.target, d.medincome / 2457.14286 +("vw");})
-		// 		.attr("y1", function(d, i){return d.source, 43.75 - (d.mathrating * 8.75) +("vw");})
-		// 		.attr("y2", function(d, i){return d.target, 43.75 - (d.mathrating * 8.75) +("vw");})
-		// 		.attr("stroke", "gray")
-		// 		.attr("stroke-width", 0.5);
+	} // render
 
+	return {
+		render : render
+	}
 
-		//I don't think that simulation is the best way to go
-		//around this, I just haven't find the right methode. 
-		var simulation = d3.forceSimulation()
-    	.force("link", d3.forceLink().id(function(d) { return d.id; }))
-    	// .force("charge", d3.forceManyBody().strength(-10))
-    	//.force("center", d3.forceCenter(width / 2, height / 2))
-    	.on("tick", ticked);
+})(window,d3);
 
-		
-		// svg.selectAll("text")
-		// 	.data(data.nodes)
-		// 	.enter()
-		// 	.append("text")
-		// 	.attr("fill", "gray")
-		// 	.attr("class", "text-fill")
-		// 	.attr("text-anchor", "middle")
-		// 	.attr("y", function(d,i){
-		// 		return 43.75 - (d.mathrating * 8.75) +("vw"); 
-		// 	})
-		// 	.attr("x", function(d,i){
-		// 		return d.medincome / 2457.14286 +("vw");
-		// 	})
-		// 	.text(function(d){
-		// 		return "students:" + d.n;
-		// 	})
-
-		// 		//THis is the on mouse over data.nodes
-		// 	.on('mouseover',function(d){
-		// 		d3.select(this).classed("selected",true)
-
-		// 	})
-		// 	.on('mouseout',function(d){
-		// 		d3.select(this).classed("selected",false)
-				
-		// 	});
-
-
-
-
-  		simulation.nodes(data.nodes);
-  		simulation.force("link").links(data.links);	
-
-
-
-	});
-
-	function ticked() {
-  		var x = (function(d){
-
-  			d.x = d.medincome / 2457.14286 +("vw");
-				// return d.medincome / 2457.14286 +("vw");
-			});
-
-  		var y = (function(d, i){
-  			d.y = 43.75 - (d.mathrating * 8.75) +("vw");
-				// return 43.75 - (d.mathrating * 8.75) +("vw");
-			});
-
-
-    	link
-        	.attr("x1", function(_d) {
-        		// console.log(_d); 
-        		return  _d.source.medincome / 2457.14286 +("vw")
-        	})
-
-        	.attr("y1", function(_d) {
-        		// console.log(_d); 
-        		// debugger
-				return  43.75 - (_d.source.mathrating * 8.75) +("vw"); })
-        	.attr("x2", function(_d) { 
-        		// return _d.target.x; 
-        		return  _d.target.medincome / 2457.14286 +("vw");
-        	})
-        	.attr("y2", function(_d) { 
-        		return  43.75 - (_d.target.mathrating * 8.75) +("vw"); })
-
-    	// node
-     //    	.attr("cx", x)
-     //  		.attr("cy", y);
-
-      	// .attr("cx", function(d) { return d.x; })
-       //  .attr("cy", function(d) { return d.y; });
-
-  	}
-}
-
-
-	
-	importData();
-
-
+window.addEventListener('resize', Chart.render);
