@@ -125,8 +125,17 @@ var Chart = (function(window,d3) {
 			  var sel = d3.select(this);
 				d3.select(this.parentNode).classed('hover', true);
 			  d3.select(this.parentNode).moveToFront();
-				var name = d.values[0].name;
-				d3.select('#information').select('.name').html(name);
+				var info = d3.select('#information');
+				var demo = d.values[0];
+
+				var name = demo.name;
+				var dbn = demo.dbn;
+				var elemadmissions = demo.elemadmissions;
+				var mathrating = demo.mathrating;
+				info.select('.name').html(name);
+				info.select('#info-dbn').html(dbn);
+				info.select('#info-elemadmissions').html(elemadmissions);
+				info.select('#info-mathrating').html(mathrating);
 				d3.select('#information').style('display', 'block');
 			}).on('mouseout', function() {
 				d3.select(this.parentNode).classed('hover', false);
