@@ -1,0 +1,166 @@
+body {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "Roboto Light", "Segoe UI Web Light", "Segoe UI Light", "Segoe UI Web Regular", "Segoe UI", Helvetica, Arial, sans-serif;
+  margin: 0;
+  color: dimgray;
+}
+
+p {
+  font-size: 12px;
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-weight: bold;
+  span {
+    font-weight: normal;
+  }
+}
+
+#chart {
+  position: relative;
+}
+
+#notFound {
+  clear: both;
+  font-size: 2em;
+  color: red;
+  font-size: 14px;
+  padding-left: 10px;
+}
+
+#schoolSearch {
+}
+
+.index{
+  z-index:999;
+  cursor: pointer;
+  stroke-width:2;
+}
+
+.typeahead,
+.tt-query,
+.tt-hint {
+/*   width: 396px; */
+  width: 35vw;
+  height: 30px;
+  padding: 8px 2vw;
+  font-size: 18px;
+  font-family: sans-serif;
+  line-height: 30px;
+  border: 2px solid #ccc;
+  -webkit-border-radius: 8px;
+     -moz-border-radius: 8px;
+          border-radius: 8px;
+  outline: none;
+  margin-right: 1vw;
+  float: left;
+}
+#button {
+  display: table;
+  float: left;
+  width: 10vw;
+  height: 50px;
+  background: dimgray;
+  -webkit-border-radius: 8px;
+     -moz-border-radius: 8px;
+          border-radius: 8px;
+  &:hover {
+    background: grey;
+  }
+  &:active {
+    background: #fe0002;
+  }
+  span {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+  }
+}
+
+.search-container {
+  text-align: center;
+  width: 50.5vw;
+  margin-left: 24.75vw;
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
+#searchHeader {
+  text-align: center;
+}
+
+.legend {
+  width: 80vw;
+  margin-left: 10vw;
+  text-align: center;
+}
+.legend-elements {
+  display: inline-flex;
+  margin-top: 10px;
+  span {
+    font-family: "HelveticaNeue-Light";
+    padding-left:10px;
+    padding-right:10px;
+    text-align: center;
+  }
+}
+
+.legend-circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  border: solid 0.5px dimgray;
+  margin-left:10px;
+  opacity: 0.6;
+}
+
+.asian { background: #36173A; }
+.black { background: #00635D; }
+.hispanic { background: #E3D26F; }
+.other { background: #BB6B00; }
+.white { background: #7B0828; }
+
+/*TODO: Clean this up*/
+.nodes circle {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+/*TODO: Clean this up*/
+.node {
+  fill-opacity: 0.35;
+  stroke: gray;
+  stroke-width: 0.5;
+}
+.school path {
+  fill: none;
+  stroke: black;
+  opacity: 0.2;
+  pointer-events: none;
+}
+.school.hover path { opacity: 1; }
+.school.hover circle { stroke: black; fill-opacity: 1; stroke-width: 2; }
+
+#information {
+  display: none;
+  position: absolute;
+  width: 250px;
+  bottom: 20%;
+  right: 20px;
+  padding: 10px 20px;
+  border: 2px solid gray;
+  border-radius: 3px;
+  background-color: smoke;
+  h4 { font-size: 14px; }
+}
+
+.filters {
+  width: 80vw;
+  margin-top: 20px;
+  margin-left: 10vw;
+  font-size: 12px;
+  a {
+    display: inline-block;
+    padding: 0 8px;
+  }
+}
