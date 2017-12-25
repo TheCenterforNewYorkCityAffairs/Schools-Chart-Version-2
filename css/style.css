@@ -21,11 +21,6 @@ p {
   font-size: 14px;
   padding-left: 10px; }
 
-.index {
-  z-index: 999;
-  cursor: pointer;
-  stroke-width: 2; }
-
 .typeahead,
 .tt-query,
 .tt-hint {
@@ -79,23 +74,21 @@ p {
   width: 80vw;
   margin-left: 10vw;
   text-align: center; }
-
-.legend-elements {
-  display: inline-flex;
-  margin-top: 10px; }
-  .legend-elements span {
-    font-family: "HelveticaNeue-Light";
-    padding-left: 10px;
-    padding-right: 10px;
-    text-align: center; }
-
-.legend-circle {
-  width: 20px;
-  height: 20px;
-  border-radius: 10px;
-  border: solid 0.5px dimgray;
-  margin-left: 10px;
-  opacity: 0.6; }
+  .legend .legend-element {
+    display: inline-flex;
+    margin-top: 10px; }
+    .legend .legend-element .legend-circle {
+      width: 20px;
+      height: 20px;
+      border-radius: 10px;
+      border: solid 0.5px dimgray;
+      margin-left: 10px;
+      opacity: 0.6; }
+    .legend .legend-element span {
+      font-family: "HelveticaNeue-Light";
+      padding-left: 10px;
+      padding-right: 10px;
+      text-align: center; }
 
 .asian {
   background: #36173A; }
@@ -112,13 +105,19 @@ p {
 .white {
   background: #7B0828; }
 
-/*TODO: Clean this up*/
-.nodes circle {
-  stroke: #fff;
-  stroke-width: 1.5px; }
+.filters {
+  width: 80vw;
+  margin-top: 20px;
+  margin-left: 10vw;
+  font-size: 12px; }
+  .filters a {
+    display: inline-block;
+    padding: 0 8px; }
 
-/*TODO: Clean this up*/
-.node {
+.axis text {
+  fill: black; }
+
+.school circle.node {
   fill-opacity: 0.35;
   stroke: gray;
   stroke-width: 0.5; }
@@ -129,13 +128,13 @@ p {
   opacity: 0.2;
   pointer-events: none; }
 
-.school.hover path {
-  opacity: 1; }
-
 .school.hover circle {
   stroke: black;
   fill-opacity: 1;
   stroke-width: 2; }
+
+.school.hover path {
+  opacity: 1; }
 
 #information {
   display: none;
@@ -146,15 +145,6 @@ p {
   padding: 10px 20px;
   border: 2px solid gray;
   border-radius: 3px;
-  background-color: smoke; }
+  background-color: rgba(255, 255, 255, 0.8); }
   #information h4 {
     font-size: 14px; }
-
-.filters {
-  width: 80vw;
-  margin-top: 20px;
-  margin-left: 10vw;
-  font-size: 12px; }
-  .filters a {
-    display: inline-block;
-    padding: 0 8px; }

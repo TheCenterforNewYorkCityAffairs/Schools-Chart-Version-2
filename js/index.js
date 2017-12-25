@@ -23,14 +23,17 @@ var Chart = (function(window,d3) {
 		//initialize scales
 		var xExtent = d3.extent(data, d => d.medincome);
 		var yExtent = d3.extent(data, d => d.mathrating);
-		x = d3.scaleLinear().domain(xExtent);
+		x = d3.scaleLog().domain(xExtent);
 		y = d3.scaleLinear().domain(yExtent);
 		r = d3.scaleLinear()
 			.domain(d3.extent(data, d => d.n))
 			.range(['0.4vw', '3.5vw']);
 
 		//initialize axis
-		xAxis = d3.axisBottom();
+		xAxis = d3.axisBottom()
+			.tickFormat(function(d) {
+				return "$" + d3.format(".2s")(d);
+			});
 		yAxis = d3.axisLeft();
 
 		line = d3.line()
@@ -103,6 +106,11 @@ var Chart = (function(window,d3) {
 
 		svg.select('.y.axis')
 			.call(yAxis);
+
+		svg.select('.x.axis').append('text')
+			.attr('x', width / 2)
+			.attr('y', 40)
+			.text("Estimated income based on students' census tracks");
 
 		// Set path's path
 		path
