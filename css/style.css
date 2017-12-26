@@ -3,6 +3,9 @@ body {
   margin: 0;
   color: dimgray; }
 
+svg {
+  overflow: visible; }
+
 p {
   font-size: 12px;
   margin-top: 0;
