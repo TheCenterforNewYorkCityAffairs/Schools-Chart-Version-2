@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div class="search-container">
+  <!-- <div class="search-container">
     <div id="searchHeader" style="clear: both; ">
       <div id="schoolSearch">
         <input class="typeahead" type="text" placeholder="School Search">
@@ -14,7 +14,7 @@
       <div id="button"><span>Search</span></div>
       <div id="notFound"></div>
     </div>
-  </div>
+  </div> -->
   <div class="legend">
     <div class="legend-element">
       <div class="legend-circle asian"></div>
@@ -29,20 +29,19 @@
       <span>Hispanic</span>
     </div>
     <div class="legend-element">
-      <div class="legend-circle other"></div>
-      <span>Other</span>
-    </div>
-    <div class="legend-element">
       <div class="legend-circle white"></div>
       <span>White</span>
     </div>
+    <div class="legend-element">
+      <div class="legend-circle other"></div>
+      <span>Other</span>
+    </div>
   </div>
   <div class="filters">
-    <a href="#" id="show-gifted">Gifted only</a>
-    <a href="#" id="show-duallang">Dual language only</a>
-    <a href="#" id="show-charter">Charter only</a>
-    <a href="#" id="hide-charter">Non-charter only</a>
-    <a href="#" id="show-all">Show all</a>
+    <div id="filter-charter"></div>
+    <div id="filter-gifted"></div>
+    <div id="filter-duallang"></div>
+    <div id="filter-unzoned"></div>
   </div>
   <div id="chart">
     <div id="information">
@@ -53,6 +52,7 @@
     </div>
   </div>
   <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script  src="js/yes-no.js"></script>
   <script  src="js/index.js"></script>
 </body>
 </html>

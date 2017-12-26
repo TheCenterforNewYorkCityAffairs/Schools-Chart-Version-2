@@ -1,7 +1,8 @@
 body {
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "Roboto Light", "Segoe UI Web Light", "Segoe UI Light", "Segoe UI Web Regular", "Segoe UI", Helvetica, Arial, sans-serif;
   margin: 0;
-  color: dimgray; }
+  color: #130C0E;
+  font-size: 12px; }
 
 svg {
   overflow: visible; }
@@ -74,9 +75,7 @@ p {
   text-align: center; }
 
 .legend {
-  width: 80vw;
-  margin-left: 10vw;
-  text-align: center; }
+  margin: 0 80px; }
   .legend .legend-element {
     display: inline-flex;
     margin-top: 10px; }
@@ -84,14 +83,17 @@ p {
       width: 20px;
       height: 20px;
       border-radius: 10px;
-      border: solid 0.5px dimgray;
-      margin-left: 10px;
-      opacity: 0.6; }
+      border: solid 0.5px #130C0E;
+      margin-left: 1px 1px 1px 10px;
+      opacity: 0.6;
+      overflow: visible;
+      box-sizing: border-box; }
     .legend .legend-element span {
-      font-family: "HelveticaNeue-Light";
-      padding-left: 10px;
-      padding-right: 10px;
-      text-align: center; }
+      font-family: Consolas, monaco, monospace;
+      padding-left: 4px;
+      padding-right: 4px;
+      text-align: center;
+      line-height: 20px; }
 
 .asian {
   background: #36173A; }
@@ -109,16 +111,20 @@ p {
   background: #7B0828; }
 
 .filters {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
   width: 80vw;
   margin-top: 20px;
-  margin-left: 10vw;
-  font-size: 12px; }
-  .filters a {
-    display: inline-block;
-    padding: 0 8px; }
+  margin-left: 10vw; }
+  .filters > div {
+    padding: 0 10px;
+    border-right: 1px dotted #cccccc; }
+    .filters > div:first-of-type {
+      padding-left: 0; }
 
 .axis text {
-  fill: black; }
+  fill: #130C0E; }
 
 .school circle.node {
   fill-opacity: 0.35;
@@ -151,3 +157,31 @@ p {
   background-color: rgba(255, 255, 255, 0.8); }
   #information h4 {
     font-size: 14px; }
+
+button.ny-btn {
+  font-family: Consolas, monaco, monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-align: center;
+  text-decoration: none;
+  color: #130C0E;
+  /* black */
+  background-color: #4CAF50;
+  /* green */
+  min-width: 40px;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 8px;
+  display: inline-block;
+  margin: 4px; }
+
+button.ny-btn:focus {
+  outline: 0; }
+
+span.ny-label {
+  display: block;
+  color: #130C0E;
+  /* black */
+  font-size: 10px;
+  font-family: Consolas, monaco, monospace; }

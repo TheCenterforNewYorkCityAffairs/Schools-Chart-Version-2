@@ -20,7 +20,26 @@ var Chart = (function(window,d3) {
 			end: 4.2,
 			label: "Above grade level"
 		},
-	]
+	];
+
+	var filters = [
+		{
+			id: '#filter-gifted',
+			label: 'Gifted'
+		},
+		{
+			id: '#filter-charter',
+			label: 'Charter'
+		},
+		{
+			id: '#filter-duallang',
+			label: 'Dual language'
+		},
+		{
+			id: '#filter-unzoned',
+			label: 'Unzoned'
+		}
+	];
 
 	var colors = {
 			'Black': '#00635D',
@@ -100,6 +119,19 @@ var Chart = (function(window,d3) {
 			.attr('transform', 'rotate(-90)')
 			.text(function(d) { return d.label; });
 
+		var filterBy = function(el, prop) {
+			var show = el.firstChild.data == 'show';
+			svg.selectAll('.school')
+				.filter(d => { return d.values[0].values[0][prop] == 1; })
+				.attr('opacity', show ? 1 : 0).style('pointer-events', show ? 'all' : 'none');
+		}
+
+		filters.forEach(function(f) {
+			noYesBtns(f.id, f.label)
+					.on('_click', function() { filterBy(this, f.id.replace('#filter-', '')); })
+					.render();
+		});
+
 		//render the chart
 		render();
 	}
@@ -113,7 +145,7 @@ var Chart = (function(window,d3) {
 		margin.bottom = 50;
 
 		width = winWidth - margin.left - margin.right;
-		height = width * 0.7 - margin.top - margin.bottom;
+		height = width * 0.52 - margin.top - margin.bottom;
 	}
 
 	// Draw the chart and all the SVG elements
@@ -195,33 +227,34 @@ var Chart = (function(window,d3) {
 			});
 		};
 
-		d3.select('#show-gifted').on('click', function() {
-			svg.selectAll('.school')
-				.filter(d => { return d.values[0].values[0].gifted == 0; })
-					.attr('opacity', 0).style('pointer-events', 'none');
-		});
 
-		d3.select('#show-duallang').on('click', function() {
-			svg.selectAll('.school')
-				.filter(d => { return d.values[0].values[0].duallang == 0; })
-				.attr('opacity', 0).style('pointer-events', 'none');
-		});
-
-		d3.select('#show-charter').on('click', function() {
-			svg.selectAll('.school')
-				.filter(d => { return d.values[0].values[0].charter == 0; })
-				.attr('opacity', 0).style('pointer-events', 'none');
-		});
-
-		d3.select('#hide-charter').on('click', function() {
-			svg.selectAll('.school')
-				.filter(d => { return d.values[0].values[0].charter == 1; })
-				.attr('opacity', 0).style('pointer-events', 'none');
-		});
-
-		d3.select('#show-all').on('click', function() {
-			svg.selectAll('.school').attr('opacity', 1).style('pointer-events', 'all');
-		});
+		// d3.select('#show-gifted').on('click', function() {
+		// 	svg.selectAll('.school')
+		// 		.filter(d => { return d.values[0].values[0].gifted == 0; })
+		// 			.attr('opacity', 0).style('pointer-events', 'none');
+		// });
+    //
+		// d3.select('#show-duallang').on('click', function() {
+		// 	svg.selectAll('.school')
+		// 		.filter(d => { return d.values[0].values[0].duallang == 0; })
+		// 		.attr('opacity', 0).style('pointer-events', 'none');
+		// });
+    //
+		// d3.select('#show-charter').on('click', function() {
+		// 	svg.selectAll('.school')
+		// 		.filter(d => { return d.values[0].values[0].charter == 0; })
+		// 		.attr('opacity', 0).style('pointer-events', 'none');
+		// });
+    //
+		// d3.select('#hide-charter').on('click', function() {
+		// 	svg.selectAll('.school')
+		// 		.filter(d => { return d.values[0].values[0].charter == 1; })
+		// 		.attr('opacity', 0).style('pointer-events', 'none');
+		// });
+    //
+		// d3.select('#show-all').on('click', function() {
+		// 	svg.selectAll('.school').attr('opacity', 1).style('pointer-events', 'all');
+		// });
 
 	} // render
 

@@ -1,10 +1,12 @@
 $color-white-transparent:   rgba(255,255,255,0.8);
-$color-black:               rgb(0,0,0);
+$color-black:               #130C0E;
+$color-gray:                rgb(204,204,204);
 
 body {
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "Roboto Light", "Segoe UI Web Light", "Segoe UI Light", "Segoe UI Web Regular", "Segoe UI", Helvetica, Arial, sans-serif;
   margin: 0;
-  color: dimgray;
+  color: $color-black;
+  font-size: 12px;
 }
 
 svg {
@@ -92,25 +94,27 @@ p {
 }
 
 .legend {
-  width: 80vw;
-  margin-left: 10vw;
-  text-align: center;
+  $legend-height: 20px;
+  margin: 0 80px;
   .legend-element {
     display: inline-flex;
     margin-top: 10px;
     .legend-circle {
-      width: 20px;
-      height: 20px;
-      border-radius: 10px;
-      border: solid 0.5px dimgray;
-      margin-left:10px;
+      width: $legend-height;
+      height: $legend-height;
+      border-radius: $legend-height / 2;
+      border: solid 0.5px $color-black;
+      margin-left: 1px 1px 1px 10px;
       opacity: 0.6;
+      overflow: visible;
+      box-sizing: border-box;
     }
     span {
-      font-family: "HelveticaNeue-Light";
-      padding-left:10px;
-      padding-right:10px;
+      font-family: Consolas, monaco, monospace;
+      padding-left: 4px;
+      padding-right: 4px;
       text-align: center;
+      line-height: $legend-height;
     }
   }
 }
@@ -122,13 +126,18 @@ p {
 .white { background: #7B0828; }
 
 .filters {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
   width: 80vw;
   margin-top: 20px;
   margin-left: 10vw;
-  font-size: 12px;
-  a {
-    display: inline-block;
-    padding: 0 8px;
+  > div {
+    padding: 0 10px;
+    border-right: 1px dotted $color-gray;
+    &:first-of-type {
+      padding-left: 0;
+    }
   }
 }
 
@@ -165,4 +174,31 @@ p {
   border-radius: 3px;
   background-color: $color-white-transparent;
   h4 { font-size: 14px; }
+}
+
+// No/Yes buttons
+button.ny-btn {
+    font-family: Consolas, monaco, monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    color:  $color-black; /* black */
+    background-color: #4CAF50; /* green */
+    min-width: 40px;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 8px;
+    display: inline-block;
+    margin: 4px;
+}
+button.ny-btn:focus {
+    outline:0;
+}
+span.ny-label {
+  display: block;
+  color:  #130C0E; /* black */
+  font-size: 10px;
+  font-family: Consolas, monaco, monospace;
 }
