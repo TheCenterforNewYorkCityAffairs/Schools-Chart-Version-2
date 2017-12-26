@@ -42,12 +42,12 @@ var Chart = (function(window,d3) {
 	];
 
 	var colors = {
-			'Black': '#00635D',
-			'White': '#7B0828',
-			'Hispanic': '#E3D26F',
-			'Asian': '#36173A',
-			'Other': '#BB6B00',
-			'Default': '#F3F3F3'
+			'Black': '#33946D',
+			'White': '#DA764C',
+			'Hispanic': '#DAD64C',
+			'Asian': '#99358A',
+			'Other': '#7C7B63',
+			'Default': '#7C7B63'
 	}
 
 	d3.json('js/datatest.json', init); //load data, then initialize chart

@@ -1,19 +1,26 @@
+.asian {
+  background: #99358A; }
+
+.black {
+  background: #33946D; }
+
+.hispanic {
+  background: #DAD64C; }
+
+.white {
+  background: #DA764C; }
+
+.other {
+  background: #7C7B63; }
+
 body {
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "Roboto Light", "Segoe UI Web Light", "Segoe UI Light", "Segoe UI Web Regular", "Segoe UI", Helvetica, Arial, sans-serif;
+  font-family: Consolas, monaco, monospace;
   margin: 0;
   color: #130C0E;
   font-size: 12px; }
 
 svg {
   overflow: visible; }
-
-p {
-  font-size: 12px;
-  margin-top: 0;
-  margin-bottom: 8px;
-  font-weight: bold; }
-  p span {
-    font-weight: normal; }
 
 #chart {
   position: relative; }
@@ -75,17 +82,21 @@ p {
   text-align: center; }
 
 .legend {
-  margin: 0 80px; }
+  position: absolute;
+  top: 20px;
+  left: 10px;
+  margin: 0 80px;
+  display: flex;
+  flex-direction: column; }
   .legend .legend-element {
     display: inline-flex;
-    margin-top: 10px; }
+    margin-bottom: 10px;
+    margin-right: 10px; }
     .legend .legend-element .legend-circle {
       width: 20px;
       height: 20px;
       border-radius: 10px;
-      border: solid 0.5px #130C0E;
-      margin-left: 1px 1px 1px 10px;
-      opacity: 0.6;
+      border: 0.5px solid #130C0E;
       overflow: visible;
       box-sizing: border-box; }
     .legend .legend-element span {
@@ -95,28 +106,13 @@ p {
       text-align: center;
       line-height: 20px; }
 
-.asian {
-  background: #36173A; }
-
-.black {
-  background: #00635D; }
-
-.hispanic {
-  background: #E3D26F; }
-
-.other {
-  background: #BB6B00; }
-
-.white {
-  background: #7B0828; }
-
 .filters {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  width: 80vw;
-  margin-top: 20px;
-  margin-left: 10vw; }
+  margin-left: 80px;
+  margin-right: 80px;
+  margin-top: 50px; }
   .filters > div {
     padding: 0 10px;
     border-right: 1px dotted #cccccc; }
@@ -138,9 +134,8 @@ p {
   pointer-events: none; }
 
 .school.hover circle {
-  stroke: black;
-  fill-opacity: 1;
-  stroke-width: 2; }
+  stroke: #130C0E;
+  fill-opacity: 1; }
 
 .school.hover path {
   opacity: 1; }
@@ -149,14 +144,23 @@ p {
   display: none;
   position: absolute;
   width: 250px;
-  bottom: 20%;
+  bottom: 15%;
   right: 20px;
   padding: 10px 20px;
   border: 2px solid gray;
   border-radius: 3px;
   background-color: rgba(255, 255, 255, 0.8); }
   #information h4 {
+    margin-top: 0;
     font-size: 14px; }
+  #information p {
+    font-size: 12px;
+    margin-top: 0;
+    margin-bottom: 4px;
+    font-weight: bold; }
+    #information p span {
+      font-weight: normal;
+      background-color: #ffff00; }
 
 button.ny-btn {
   font-family: Consolas, monaco, monospace;
@@ -166,7 +170,6 @@ button.ny-btn {
   text-align: center;
   text-decoration: none;
   color: #130C0E;
-  /* black */
   background-color: #4CAF50;
   /* green */
   min-width: 40px;
