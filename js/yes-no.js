@@ -14,8 +14,8 @@
         var dispatcher = d3.dispatch("_click");
 
         // some default values
-        var nTxt = 'hide', // text for NO button
-            yTxt = 'show', // text for YES button
+        var nTxt = 'off', // text for NO button
+            yTxt = 'on', // text for YES button
             nBg = defaultCol, // unselected background for NO
             yBg = defaultCol, // unselected bg for YES
             nBgActive = activeCol, // selected bg for NO
@@ -31,8 +31,8 @@
 
             var btn = function(txt, bg, bgActive) {
                 container.append('button')
-                    .attr('class', 'ny-btn' + (txt == 'hide' ? ' ny-btn-unselected' : ' ny-btn-selected'))
-                    .style('background', txt == 'hide' ? bg : bgActive)
+                    .attr('class', 'ny-btn' + (txt == 'on' ? ' ny-btn-unselected' : ' ny-btn-selected'))
+                    .style('background', txt == 'on' ? bg : bgActive)
                     .text(txt)
                     .on('click', function () {
                         d3.select(_selection).selectAll('.ny-btn')

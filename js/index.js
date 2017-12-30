@@ -22,22 +22,22 @@ var Chart = (function(window,d3) {
 		},
 	];
 
-	var filters = [
+	var filterKey = [
 		{
 			id: '#filter-gifted',
-			label: 'Gifted'
+			label: 'Gifted only'
 		},
 		{
 			id: '#filter-charter',
-			label: 'Charter'
+			label: 'Charter only'
 		},
 		{
 			id: '#filter-duallang',
-			label: 'Dual language'
+			label: 'Dual language only'
 		},
 		{
 			id: '#filter-unzoned',
-			label: 'Unzoned'
+			label: 'Unzoned only'
 		}
 	];
 
@@ -60,6 +60,30 @@ var Chart = (function(window,d3) {
 				.key(d => d.medincome).sortKeys(d3.ascending)
 				.entries(data);
 
+		var filters = {
+			charter: undefined,
+			gifted: undefined,
+			duallang: undefined,
+			unzoned: undefined,
+			districtid: undefined
+		}
+
+		function filter() {
+			svg.selectAll('.school')
+					.attr('opacity', function(d) { return filterOut(d) ? 0 : 1})
+					.style('pointer-events', function(d) { return filterOut(d) ? 'none' : 'all'});
+
+			function filterOut(d) {
+				var filterOut = false;
+				for (var key in filters) {
+					if (typeof(filters[key]) != 'undefined' && d.values[0].values[0][key] != filters[key]) {
+						filterOut = true;
+					}
+				}
+				return filterOut;
+			}
+		}
+
 		//initialize scales
 		var xExtent = d3.extent(data, d => d.medincome);
 		var yExtent = d3.extent(data, d => d.mathrating);
@@ -74,7 +98,8 @@ var Chart = (function(window,d3) {
 			.tickFormat(function(d) {
 				return "$" + d3.format(".2s")(d);
 			});
-		yAxis = d3.axisLeft();
+		yAxis = d3.axisLeft()
+			.ticks(3);
 
 		line = d3.line()
 				.x(d => x(d.values[0].medincome))
@@ -119,17 +144,25 @@ var Chart = (function(window,d3) {
 			.attr('transform', 'rotate(-90)')
 			.text(function(d) { return d.label; });
 
-		var filterBy = function(el, prop) {
-			var show = el.firstChild.data == 'show';
-			svg.selectAll('.school')
-				.filter(d => { return d.values[0].values[0][prop] == 1; })
-				.attr('opacity', show ? 1 : 0).style('pointer-events', show ? 'all' : 'none');
+		filterKey.forEach(function(f) {
+			noYesBtns(f.id, f.label)
+					.on('_click', function() {
+						filters[f.id.replace('#filter-', '')] = this.firstChild.data == 'on' ? 1 : 0;
+						filter();
+					})
+					.render();
+		});
+
+		var districtExtent = d3.extent(data, function(d) {
+			return d.districtid;
+		});
+		for (var i = districtExtent[0]; i < districtExtent[1] + 1; i++) {
+			d3.select('#select-district').append('option').html(i).attr('value', i);
 		}
 
-		filters.forEach(function(f) {
-			noYesBtns(f.id, f.label)
-					.on('_click', function() { filterBy(this, f.id.replace('#filter-', '')); })
-					.render();
+		d3.select('#select-district').on('change', function() {
+			filters.districtid = this.value == 'all' ? undefined : this.value;
+			filter();
 		});
 
 		//render the chart
@@ -226,35 +259,6 @@ var Chart = (function(window,d3) {
 				&& this.parentNode.insertBefore(this, firstChild);
 			});
 		};
-
-
-		// d3.select('#show-gifted').on('click', function() {
-		// 	svg.selectAll('.school')
-		// 		.filter(d => { return d.values[0].values[0].gifted == 0; })
-		// 			.attr('opacity', 0).style('pointer-events', 'none');
-		// });
-    //
-		// d3.select('#show-duallang').on('click', function() {
-		// 	svg.selectAll('.school')
-		// 		.filter(d => { return d.values[0].values[0].duallang == 0; })
-		// 		.attr('opacity', 0).style('pointer-events', 'none');
-		// });
-    //
-		// d3.select('#show-charter').on('click', function() {
-		// 	svg.selectAll('.school')
-		// 		.filter(d => { return d.values[0].values[0].charter == 0; })
-		// 		.attr('opacity', 0).style('pointer-events', 'none');
-		// });
-    //
-		// d3.select('#hide-charter').on('click', function() {
-		// 	svg.selectAll('.school')
-		// 		.filter(d => { return d.values[0].values[0].charter == 1; })
-		// 		.attr('opacity', 0).style('pointer-events', 'none');
-		// });
-    //
-		// d3.select('#show-all').on('click', function() {
-		// 	svg.selectAll('.school').attr('opacity', 1).style('pointer-events', 'all');
-		// });
 
 	} // render
 
