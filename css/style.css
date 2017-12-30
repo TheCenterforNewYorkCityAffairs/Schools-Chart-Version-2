@@ -336,6 +336,9 @@ select.form-control-lg:not([size]):not([multiple]) {
 .other {
   background: #7C7B63; }
 
+.highlight {
+  background-color: #ffff00; }
+
 body {
   font-family: Consolas, monaco, monospace;
   margin: 0;
@@ -345,36 +348,63 @@ body {
 h1, h2, h3 {
   text-align: center; }
 
+h1 {
+  font-family: 'Avenir';
+  font-weight: 400;
+  font-size: 2.5em; }
+
+hr {
+  width: 60%;
+  border-top: 1px dotted #cccccc; }
+
 svg {
   overflow: visible; }
 
 #chart {
   position: relative; }
 
-#notFound {
-  clear: both;
-  font-size: 2em;
-  color: red;
-  font-size: 14px;
-  padding-left: 10px; }
+#school-search {
+  position: relative; }
+  #school-search .close {
+    position: absolute;
+    top: 7px;
+    right: 12px;
+    z-index: 1;
+    cursor: pointer; }
 
 .typeahead,
 .tt-query,
 .tt-hint {
-  /*   width: 396px; */
-  width: 35vw;
-  height: 30px;
-  padding: 8px 2vw;
-  font-size: 18px;
-  font-family: sans-serif;
-  line-height: 30px;
-  border: 2px solid #ccc;
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  border-radius: 8px;
+  width: 200px;
+  font-family: Consolas, monaco, monospace;
+  font-size: 10px;
+  padding: 4px 20px 4px 8px;
+  border: 1px solid #cccccc;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
   outline: none;
-  margin-right: 1vw;
-  float: left; }
+  float: left;
+  margin: 4px; }
+
+.tt-menu {
+  width: 422px;
+  margin-top: 4px;
+  margin-left: 4px;
+  padding: 8px 4px;
+  background-color: #fff;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); }
+  .tt-menu .tt-selectable {
+    cursor: pointer; }
+  .tt-menu .tt-suggestion {
+    margin: 4px 0px;
+    border-bottom: 1px dotted #cccccc; }
+  .tt-menu .tt-suggestion:hover {
+    background-color: #eeeeee; }
+  .tt-menu .tt-suggestion.tt-cursor {
+    background-color: #ffff00; }
 
 #button {
   display: table;
@@ -470,15 +500,16 @@ svg {
   display: none;
   position: absolute;
   width: 250px;
-  bottom: 15%;
-  right: 20px;
   padding: 10px 20px;
   border: 2px solid gray;
   border-radius: 3px;
-  background-color: rgba(255, 255, 255, 0.8); }
+  background-color: rgba(255, 255, 255, 0.65);
+  pointer-events: none; }
   #information h4 {
     margin-top: 0;
-    font-size: 14px; }
+    font-size: 14px;
+    margin-bottom: 10px;
+    border-bottom: 1px dotted #cccccc; }
   #information p {
     font-size: 12px;
     margin-top: 0;
@@ -520,6 +551,5 @@ button.ny-btn:focus {
 span.ny-label {
   display: block;
   color: #130C0E;
-  /* black */
   font-size: 10px;
   font-family: Consolas, monaco, monospace; }

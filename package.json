@@ -1,7 +1,7 @@
 {
   "name": "schools-chart",
   "version": "1.0.0",
-  "description": "Visualization of New York school math ratings by demographics",
+  "description": "A Visualization Ethnic Disparities in Family Income and Math Scores in New York City Public Schools",
   "main": "index.js",
   "directories": {
     "test": "test"
@@ -21,6 +21,7 @@
   "homepage": "https://github.com/TheCenterforNewYorkCityAffairs/Schools-Chart-Version-2#readme",
   "devDependencies": {
     "gulp": "^3.9.1",
-    "gulp-sass": "^3.1.0"
+    "gulp-sass": "^3.1.0",
+    "jquery": "^3.2.1"
   }
 }

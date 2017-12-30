@@ -9,7 +9,7 @@
 @import '../node_modules/bootstrap/scss/variables';
 @import '../node_modules/bootstrap/scss/forms';
 
-$color-white-transparent:   rgba(255,255,255,0.8);
+$color-white-transparent:   rgba(255,255,255,0.65);
 $color-light-gray:          rgb(238, 238, 238); // form/button bg
 $color-gray:                rgb(204,204,204);
 $color-black:               #130C0E;
@@ -29,6 +29,9 @@ $color-highlight:           #ffff00;
 .hispanic { background: $color-yellow; }
 .white { background: $color-orange; }
 .other { background: $color-tan; }
+.highlight { background-color: $color-highlight; }
+
+$border-dotted: 1px dotted $color-gray;
 
 // Old colors
 // .asian { background: #36173A; }
@@ -50,6 +53,17 @@ h1, h2, h3 {
   text-align: center;
 }
 
+h1 {
+  font-family: 'Avenir';
+  font-weight: 400;
+  font-size: 2.5em;
+}
+
+hr {
+  width: 60%;
+  border-top: $border-dotted;
+}
+
 svg {
   overflow: visible;
 }
@@ -58,35 +72,56 @@ svg {
   position: relative;
 }
 
-#notFound {
-  clear: both;
-  font-size: 2em;
-  color: red;
-  font-size: 14px;
-  padding-left: 10px;
-}
-
-#schoolSearch {
+#school-search {
+  position: relative;
+  .close {
+    position: absolute;
+    top: 7px;
+    right: 12px;
+    z-index: 1;
+    cursor: pointer;
+  }
 }
 
 .typeahead,
 .tt-query,
 .tt-hint {
-/*   width: 396px; */
-  width: 35vw;
-  height: 30px;
-  padding: 8px 2vw;
-  font-size: 18px;
-  font-family: sans-serif;
-  line-height: 30px;
-  border: 2px solid #ccc;
-  -webkit-border-radius: 8px;
-     -moz-border-radius: 8px;
-          border-radius: 8px;
+  width: 200px;
+  font-family: Consolas, monaco, monospace;
+  font-size: 10px;
+  padding: 4px 20px 4px 8px;
+  border: 1px solid $color-gray;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
   outline: none;
-  margin-right: 1vw;
   float: left;
+  margin: 4px;
 }
+.tt-menu {
+  width: 422px;
+  margin-top: 4px;
+  margin-left: 4px;
+  padding: 8px 4px;
+  background-color: #fff;
+  border: 1px solid $color-gray;
+  border-radius: 4px;
+  box-shadow: 0 5px 10px rgba(0,0,0,.2);
+  .tt-selectable {
+    cursor: pointer;
+  }
+  .tt-suggestion {
+    margin: 4px 0px;
+    border-bottom: $border-dotted;
+  }
+  .tt-suggestion:hover {
+    background-color: $color-light-gray;
+  }
+  .tt-suggestion.tt-cursor {
+    background-color: $color-highlight;
+  }
+}
+
 #button {
   display: table;
   float: left;
@@ -163,7 +198,7 @@ svg {
   margin-top: 50px;
   > div {
     padding: 0 10px;
-    border-right: 1px dotted $color-gray;
+    border-right: $border-dotted;
     &:first-of-type {
       padding-left: 0;
     }
@@ -196,15 +231,16 @@ svg {
   display: none;
   position: absolute;
   width: 250px;
-  bottom: 15%;
-  right: 20px;
   padding: 10px 20px;
   border: 2px solid gray;
   border-radius: 3px;
   background-color: $color-white-transparent;
+  pointer-events: none;
   h4 {
     margin-top: 0;
     font-size: 14px;
+    margin-bottom: 10px;
+    border-bottom: $border-dotted;
   }
   p {
     font-size: 12px;
@@ -252,7 +288,7 @@ button.ny-btn:focus {
 }
 span.ny-label {
   display: block;
-  color:  #130C0E; /* black */
+  color:  $color-black;
   font-size: 10px;
   font-family: Consolas, monaco, monospace;
 }

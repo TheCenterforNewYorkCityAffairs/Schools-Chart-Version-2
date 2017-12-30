@@ -54,20 +54,29 @@ var Chart = (function(window,d3) {
 
 	// Initialize the chart for the first time
 	function init(json) {
+		// Main data manipulations
 		data = json['nodes'];
 		datanest = d3.nest()
 				.key(d => d.dbn)
 				.key(d => d.medincome).sortKeys(d3.ascending)
 				.entries(data);
 
+		var typeaheadData = d3.nest()
+				.key(d => d.name)
+				.rollup(function(leaves) { return leaves[0].dbn; })
+				.entries(data);
+
+		// Filters objects to keep track of what should be filtered out
 		var filters = {
 			charter: undefined,
 			gifted: undefined,
 			duallang: undefined,
 			unzoned: undefined,
-			districtid: undefined
+			districtid: undefined,
+			dbn: undefined
 		}
 
+		// Filter function for binary and district filters
 		function filter() {
 			svg.selectAll('.school')
 					.attr('opacity', function(d) { return filterOut(d) ? 0 : 1})
@@ -126,6 +135,7 @@ var Chart = (function(window,d3) {
 			.append('path')
 				.datum(d => d.values);
 
+		// Axes and labels
 		chartWrapper.append('g').classed('x axis', true);
 		chartWrapper.append('g').classed('y axis', true);
 
@@ -139,11 +149,12 @@ var Chart = (function(window,d3) {
 
 		yLabelText = yLabel.append('text')
 			.attr('x', 0)
-			.attr('y', -40)
+			.attr('y', -30)
 			.attr('text-anchor', 'middle')
 			.attr('transform', 'rotate(-90)')
 			.text(function(d) { return d.label; });
 
+		// On/off filters
 		filterKey.forEach(function(f) {
 			noYesBtns(f.id, f.label)
 					.on('_click', function() {
@@ -153,6 +164,7 @@ var Chart = (function(window,d3) {
 					.render();
 		});
 
+		// District filter
 		var districtExtent = d3.extent(data, function(d) {
 			return d.districtid;
 		});
@@ -162,6 +174,37 @@ var Chart = (function(window,d3) {
 
 		d3.select('#select-district').on('change', function() {
 			filters.districtid = this.value == 'all' ? undefined : this.value;
+			filter();
+		});
+
+		// Typeahead school search
+		$('#school-search .typeahead').typeahead({
+		  hint: true,
+		  highlight: true,
+		  minLength: 1
+		},
+		{
+		  name: 'schools',
+		  source: substringMatcher(typeaheadData)
+		}).on("input", function(e) {
+			var val = e.target.value;
+			if (val == '') {
+				filters.dbn = undefined;
+				filter();
+			}
+		});
+
+		$('.typeahead').on('typeahead:selected', function(evt, item) {
+			var result = typeaheadData.filter(function( obj ) {
+				return obj.key == item;
+			});
+			filters.dbn = result[0].value;
+			filter();
+		});
+
+		$('#school-search .close').on('click', function(e) {
+			$('.typeahead').typeahead('val', '');
+			filters.dbn = undefined;
 			filter();
 		});
 
@@ -234,12 +277,19 @@ var Chart = (function(window,d3) {
 		}
 
 		node.on('mouseover', function(d) {
-				var sel = d3.select(this);
-				d3.select(this.parentNode).classed('hover', true);
-				d3.select(this.parentNode).moveToFront();
+				var $parent = d3.select(this.parentNode);
+				$parent.classed('hover', true).moveToFront();
+				var gWidth = this.parentNode.getBoundingClientRect().width;
+				var left = $(this.parentNode).position().left;
+				if ((left + gWidth + 330) > (width + margin.right + margin.left)) {
+					left = left - 330;
+				} else {
+					left = left + gWidth + 30;
+				}
+
+				var top = $(this.parentNode).position().top;
 				var info = d3.select('#information');
 				var demo = d.values[0];
-
 				var name = demo.name;
 				var dbn = demo.dbn;
 				var elemadmissions = demo.elemadmissions;
@@ -248,9 +298,14 @@ var Chart = (function(window,d3) {
 				info.select('#info-dbn').html(dbn);
 				info.select('#info-elemadmissions').html(elemadmissions);
 				info.select('#info-mathrating').html(mathrating);
-				d3.select('#information').style('display', 'block');
+				d3.select('#information')
+					.style("left", left + "px")
+					.style("top", top + "px")
+					.style('display', 'block');
 			}).on('mouseout', function() {
 				d3.select(this.parentNode).classed('hover', false);
+				d3.select('#information')
+					.style('display', 'none');
 			});
 
 		d3.selection.prototype.moveToBack = function() {
