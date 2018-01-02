@@ -194,7 +194,7 @@ var Chart = (function(window,d3) {
 		}).on("input", function(e) {
 			var val = e.target.value;
 			if (val == '') {
-				filters.dbn = undefined;
+				filters.dbn.value = undefined;
 				filter();
 			}
 		});
@@ -203,13 +203,13 @@ var Chart = (function(window,d3) {
 			var result = typeaheadData.filter(function( obj ) {
 				return obj.key == item;
 			});
-			filters.dbn = result[0].value;
+			filters.dbn.value = result[0].value;
 			filter();
 		});
 
 		$('#school-search .close').on('click', function(e) {
 			$('.typeahead').typeahead('val', '');
-			filters.dbn = undefined;
+			filters.dbn.value = undefined;
 			filter();
 		});
 
