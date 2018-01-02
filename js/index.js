@@ -36,6 +36,10 @@ var Chart = (function(window,d3) {
 			label: 'Dual language only'
 		},
 		{
+			id: '#filter-zoned',
+			label: 'Zoned only'
+		},
+		{
 			id: '#filter-unzoned',
 			label: 'Unzoned only'
 		}
@@ -68,12 +72,13 @@ var Chart = (function(window,d3) {
 
 		// Filters objects to keep track of what should be filtered out
 		var filters = {
-			charter: undefined,
-			gifted: undefined,
-			duallang: undefined,
-			unzoned: undefined,
-			districtid: undefined,
-			dbn: undefined
+			charter: {key: 'charter', value: undefined},
+			gifted: {key: 'gifted', value: undefined},
+			duallang: {key: 'duallang', value: undefined},
+			zoned: {key: 'unzoned', value: undefined},
+			unzoned: {key: 'unzoned', value: undefined},
+			districtid: {key: 'districtid', value: undefined},
+			dbn: {key: 'dbn', value: undefined}
 		}
 
 		// Filter function for binary and district filters
@@ -81,11 +86,10 @@ var Chart = (function(window,d3) {
 			svg.selectAll('.school')
 					.attr('opacity', function(d) { return filterOut(d) ? 0 : 1})
 					.style('pointer-events', function(d) { return filterOut(d) ? 'none' : 'all'});
-
 			function filterOut(d) {
 				var filterOut = false;
 				for (var key in filters) {
-					if (typeof(filters[key]) != 'undefined' && d.values[0].values[0][key] != filters[key]) {
+					if (typeof(filters[key].value) != 'undefined' && d.values[0].values[0][filters[key].key] != filters[key].value) {
 						filterOut = true;
 					}
 				}
@@ -158,7 +162,8 @@ var Chart = (function(window,d3) {
 		filterKey.forEach(function(f) {
 			noYesBtns(f.id, f.label)
 					.on('_click', function() {
-						filters[f.id.replace('#filter-', '')] = this.firstChild.data == 'on' ? 1 : 0;
+						var onValue = f.id == '#filter-zoned' ? 0 : 1;
+						filters[f.id.replace('#filter-', '')].value = this.firstChild.data == 'on' ? onValue : undefined;
 						filter();
 					})
 					.render();
@@ -173,7 +178,7 @@ var Chart = (function(window,d3) {
 		}
 
 		d3.select('#select-district').on('change', function() {
-			filters.districtid = this.value == 'all' ? undefined : this.value;
+			filters.districtid.value = this.value == 'all' ? undefined : this.value;
 			filter();
 		});
 
