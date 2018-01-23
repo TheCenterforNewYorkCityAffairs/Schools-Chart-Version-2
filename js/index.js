@@ -100,7 +100,9 @@ var Chart = (function(window,d3) {
 		//initialize scales
 		var xExtent = d3.extent(data, d => d.medincome);
 		var yExtent = d3.extent(data, d => d.mathrating);
-		x = d3.scaleLog().domain(xExtent);
+		x = d3.scaleLog()
+				.base(10)
+				.domain(xExtent);
 		y = d3.scaleLinear().domain(yExtent);
 		r = d3.scaleLinear()
 				.domain(d3.extent(data, d => d.n))
@@ -108,6 +110,7 @@ var Chart = (function(window,d3) {
 
 		//initialize axis
 		xAxis = d3.axisBottom()
+			.tickValues([xExtent[0], 20000, 30000, 40000, 50000, 60000, 70000, 80000, 100000, 125000, 150000, xExtent[1]])
 			.tickFormat(function(d) {
 				return "$" + d3.format(".2s")(d);
 			});
