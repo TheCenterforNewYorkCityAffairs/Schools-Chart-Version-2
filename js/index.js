@@ -301,11 +301,18 @@ var Chart = (function(window,d3) {
 				var name = demo.name;
 				var dbn = demo.dbn;
 				var elemadmissions = demo.elemadmissions;
-				var mathrating = demo.mathrating;
+
+				var mathhtml = '<div>';
+				$parent.datum().values.forEach(function(d) {
+					mathhtml = mathhtml + '<div><span>' + d.values[0].eth + ': </span>'
+						+ '<span>' + d.values[0].mathrating + '</span></div>'
+				})
+				mathhtml = mathhtml + '</div>'
+
 				info.select('.name').html(name);
 				info.select('#info-dbn').html(dbn);
 				info.select('#info-elemadmissions').html(elemadmissions);
-				info.select('#info-mathrating').html(mathrating);
+				info.select('#info-mathrating').html(mathhtml);
 				d3.select('#information')
 					.style("left", left + "px")
 					.style("top", top + "px")
