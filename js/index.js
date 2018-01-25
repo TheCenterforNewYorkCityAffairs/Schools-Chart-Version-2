@@ -296,7 +296,7 @@ $(window).bind('load', function(){
 						} else {
 							left = left + gWidth + 30;
 						}
-						var top = this.parentNode.getBoundingClientRect().top - 100;
+						var top = this.parentNode.getBoundingClientRect().top - 80;
 
 						var info = d3.select('#information');
 						var demo = d.values[0];
