@@ -9,27 +9,30 @@
   <h3 style="font-size: 18px;">2016 Math Scores by Race and Income, New York City Public School Students in Grades 3-5</h3>
   <hr>
   <div id="no-chart"><p>Please visit this page on a larger display to view the visualization.</p></div>
-  <div class="filters">
-    <div>
-      <span class="ny-label">District</span>
-      <select id="select-district">
-        <option value="all">All</option>
-      </select>
-    </div>
-    <div id="school-search-wrap">
-      <span class="ny-label">Find a school</span>
-      <div id="school-search">
-        <span aria-hidden="true" class="close">&times;</span>
-        <input class="typeahead" type="text" placeholder="School">
+  <div class="filters-wrap">
+    <span>Filter by:</span>&nbsp;
+    <div class="filters">
+      <div>
+        <span class="ny-label">District</span>
+        <select id="select-district">
+          <option value="all">All</option>
+        </select>
+      </div>
+      <div id="school-search-wrap">
+        <span class="ny-label">School name</span>
+        <div id="school-search">
+          <span aria-hidden="true" class="close">&times;</span>
+          <input class="typeahead" type="text" placeholder="School">
+        </div>
       </div>
     </div>
-  </div>
-  <div class="filters" style="margin-top: 20px;">
-    <div id="filter-charter" class="filter"></div>
-    <div id="filter-gifted" class="filter"></div>
-    <div id="filter-duallang" class="filter"></div>
-    <div id="filter-zoned" class="filter"></div>
-    <div id="filter-unzoned" class="filter"></div>
+    <div class="filters">
+      <div id="filter-charter" class="filter"></div>
+      <div id="filter-gifted" class="filter"></div>
+      <div id="filter-zoned" class="filter"></div>
+      <div id="filter-unzoned" class="filter"></div>
+      <div id="filter-duallang" class="filter"></div>
+    </div>
   </div>
   <div id="chart">
     <div class="legend">

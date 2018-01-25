@@ -27,23 +27,23 @@ $(window).bind('load', function(){
 			var filterKey = [
 				{
 					id: '#filter-gifted',
-					label: 'Gifted only'
+					label: 'Gifted'
 				},
 				{
 					id: '#filter-charter',
-					label: 'Charter only'
+					label: 'Charter'
 				},
 				{
 					id: '#filter-duallang',
-					label: 'Dual language only'
+					label: 'Dual language'
 				},
 				{
 					id: '#filter-zoned',
-					label: 'Zoned only'
+					label: 'Zoned'
 				},
 				{
 					id: '#filter-unzoned',
-					label: 'Unzoned only'
+					label: 'Unzoned'
 				}
 			];
 
