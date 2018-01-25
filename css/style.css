@@ -458,7 +458,7 @@ svg {
   position: absolute;
   top: 20px;
   left: 10px;
-  margin: 0 80px;
+  margin: 0 70px;
   display: flex;
   flex-direction: column; }
   .legend .legend-element {

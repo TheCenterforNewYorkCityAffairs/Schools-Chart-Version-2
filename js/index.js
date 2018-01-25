@@ -226,8 +226,8 @@ $(window).bind('load', function(){
 			// depending on current window size
 			function updateDimensions(winWidth) {
 				margin.top = 20;
-				margin.right = 50;
-				margin.left = 80;
+				margin.right = 40;
+				margin.left = 70;
 				margin.bottom = 50;
 
 				width = winWidth - margin.left - margin.right;
