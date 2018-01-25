@@ -10,24 +10,26 @@
   <h3>Ethnic Disparities in Family Income and Math Scores in New York City Public Schools</h3>
   <hr>
   <div class="filters">
-    <div id="filter-charter"></div>
-    <div id="filter-gifted"></div>
-    <div id="filter-duallang"></div>
-    <div id="filter-zoned"></div>
-    <div id="filter-unzoned"></div>
     <div>
       <span class="ny-label">District</span>
       <select id="select-district">
         <option value="all">All</option>
       </select>
     </div>
-    <div>
+    <div id="school-search-wrap">
       <span class="ny-label">Find a school</span>
       <div id="school-search">
         <span aria-hidden="true" class="close">&times;</span>
-        <input class="typeahead" type="text" placeholder="School name">
+        <input class="typeahead" type="text" placeholder="School">
       </div>
     </div>
+  </div>
+  <div class="filters" style="margin-top: 20px;">
+    <div id="filter-charter" class="filter"></div>
+    <div id="filter-gifted" class="filter"></div>
+    <div id="filter-duallang" class="filter"></div>
+    <div id="filter-zoned" class="filter"></div>
+    <div id="filter-unzoned" class="filter"></div>
   </div>
   <div id="chart">
     <div class="legend">

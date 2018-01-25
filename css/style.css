@@ -466,14 +466,20 @@ svg {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  flex-wrap: wrap;
   margin-left: 80px;
   margin-right: 80px;
   margin-top: 50px; }
   .filters > div {
     padding: 0 10px;
     border-right: 1px dotted #cccccc; }
+    .filters > div:last-of-type {
+      border-right: 0; }
     .filters > div:first-of-type {
       padding-left: 0; }
+  .filters .filter {
+    flex: 0 1 auto;
+    white-space: nowrap; }
 
 .axis text {
   fill: #130C0E; }

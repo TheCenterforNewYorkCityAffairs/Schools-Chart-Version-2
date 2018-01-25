@@ -193,15 +193,23 @@ svg {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  flex-wrap: wrap;
   margin-left: 80px;
   margin-right: 80px;
   margin-top: 50px;
   > div {
     padding: 0 10px;
     border-right: $border-dotted;
+    &:last-of-type {
+      border-right: 0;
+    }
     &:first-of-type {
       padding-left: 0;
     }
+  }
+  .filter {
+    flex: 0 1 auto;
+    white-space: nowrap;
   }
 }
 
